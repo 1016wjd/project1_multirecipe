@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="row justify-content-md-center">
+  <div class="col col-lg-2" >
+    
+  </div>
+  <div class="col col-lg-5">
+    <form class="d-flex" method="POST" action="{% url 'posts:search' %}">
+      {% csrf_token %}       
+      <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="검색">
+      <button class="btn btn-outline-dark" type="submit"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg> 
+      </button>
+    </form>
+  </div>
+
+
+  <div class="col col-lg-2">
+    <form action="{% url 'posts:imgsearch' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="search_image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+          <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z"></path>
+          <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"></path>
+        </svg>
+      </label>
+      <input type="file" class="form-control" id="search_image" name="search_image" aria-label="이미지로검색하기" style="display: none">
+      <button class="btn btn-outline-dark" type="submit"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg> 
+      </button>
+    </form>
+  </div>
+
+</div>
+
+<br>
+<p style="text-align: center; "><b>인기검색어</b></p>
+
+<div style="text-align: center; ">
+  <iframe src="보안상 삭제" height="350" width="500"></iframe>
+</div>
+
+<br>
+
+<div style="display: flex; flex-direction: column">
+
+  <div style="height: 600px">
+      <div class="container text-center">
+          <h1><b>{{ time_label }}에 인기있는 레시피</b></h1>
+      </div>
+        {% for post in time_posts %}  
+            {% include '_card.html' %}
+        {% endfor %}
+      
+  </div>
+
+  <div style="height: 600px">
+    <div class="container text-center">
+        <h1><b>{{ age }}대 {{ sex }}에게 인기있는 레시피</b></h1>
+    </div>
+      {% for post in user_posts %}  
+          {% include '_card.html' %}
+      {% endfor %}
+    
+  </div>
+
+
+  {% if score_based_user_recom_posts %}
+  <div style="height: 600px" >
+    <div class="container text-center">
+    <h1><b>{{ user_id }}회원님이 좋아할만한 레시피</b></h1>
+    </div>
+    {% for post in score_based_user_recom_posts %}  
+        {% include '_card.html' %}
+    {% endfor %}
+  
+  </div>
+  {% else %}
+  <div style="height: 300px">
+    <div class="container text-center">
+    {% comment %} <h1><b>{{ user_id }}회원님이 좋아할만한 레시피</b></h1>
+    <h1>레시피에 별점을 달아주시면 회원님을 위한 레시피를 추천해드립니다!</h1> {% endcomment %}
+  </div>
+  {% endif %}
+      
+  <br>
+  <br>
+  <br>
+
+  <div style="height: 600px;">
+      <div class="container text-center">
+          <h1><b>{{index}} </b></h1>
+      </div>
+          
+      <br>
+      <div id="box1">
+          <button type="button" class="btn btn-dark">최신순</button>
+          <a href="{% url 'posts:hit' %}"><button type="button" class="btn btn-outline-dark">조회순</button></a>
+          <a href="{% url 'posts:score' %}"><button type="button" class="btn btn-outline-dark">별점순</button></a>
+      </div>
+      <br>
+      
+      {% for post in posts %}
+          {% include '_card.html' %}
+      {% endfor %}
+  </div>
+
+</div>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+<div class="container text-center"><h1>{{ user }} 님의 마이페이지</h1></div>
+
+
+
+    <h1>{{ user }} 님이 즐겨찾기한 게시물 <i class="bi bi-star-fill"></i></h1>
+    {% for post in user.bookmark_posts.all %}
+        {% include '_card.html' %}
+    {% endfor %}
+
+
+{% endblock %}

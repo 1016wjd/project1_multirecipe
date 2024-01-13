@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        #box1 { text-align: right; }
+        #box2 { text-align: left; }
+        #box3 { text-align: center; }
+        .card {
+        overflow: hidden; /* 내용이 카드를 벗어나는 것을 제어 */
+        font-size: 14px;
+        padding: 10px;}
+        .ingredient-box {
+            padding: 15px; /* 내용 주위의 여백 */
+            border: 1px solid #ccc; /* 테두리 선 스타일 */
+            border-radius: 5px; /* 테두리 둥글게 만들기 */
+            box-shadow: 2px 2px 5px #888888; /* 그림자 효과 */
+            margin-bottom: 20px; /* 다른 요소와의 간격 조절 */
+        }
+        .circle {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 200px; /* 너비 조절 */
+            height: 200px; /* 높이 조절 */
+            background-color: #ffffff; /* 배경색 설정 */
+            border: 2px solid #000000; /* 테두리를 검정색으로 설정 */
+            border-radius: 50%; /* 둥근 테두리 */
+        }
+    
+        .circle a {
+            text-decoration: none; /* 링크에 밑줄 제거 */
+            color: #333; /* 링크 색상 설정 */
+            font-size: 60px; /* 폰트 크기 설정 */
+        }
+        {% comment %} .card-img-top {
+            width: 100%; /* 너비를 100%로 설정하여 부모 요소의 크기에 맞춤 */
+            height: auto; /* 자동으로 높이를 조절하여 가로세로 비율 유지 */
+        } {% endcomment %}
+        
+    </style>
+</head>
+    
+
+<body>
+
+    {% include '_nav.html' %}
+    {% if user.is_authenticated %}
+    <div id="box1">
+        <a class="navbar-brand" href="{% url 'posts:create' %}">게시글작성</a>
+        &ensp;
+        <a class="navbar-brand ml-auto" href="{% url 'accounts:logout' %}">로그아웃</a>
+        &ensp;
+        <a href="{% url 'accounts:mypage_main' %}" class="navbar-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+        </a>
+        &ensp;
+    </div>
+
+    {% else %}
+    {% endif %}
+    <br> 
+
+    <div class="container text-center">
+        {% comment %} <h1><a class="navbar-brand" href="{% url 'posts:index' %}">멀티 레시피</a></h1> {% endcomment %}
+        <a c href="{% url 'posts:index' %}"><img src="/media/image/logo/logo.png" width="400" height="80"></a>
+    </div>
+
+    <br>
+        {% block body %}
+        {% endblock %}
+    </div>
+
+
+    
+    <div class="container">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>

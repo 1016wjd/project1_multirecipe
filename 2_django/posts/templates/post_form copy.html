@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group input-group-lg">
+            <span class="input-group-text" id="title">제목</span>
+            <input name="title" type="text" class="form-control" placeholder="음식이름" aria-label="title" aria-describedby="title">
+        </div>
+        <br>
+        {% comment %} <div class="input-group mb-3">
+            <label class="input-group-text" for="image">음식이미지</label>
+            <input name="image" type="file" class="form-control" id="image">
+        </div> {% endcomment %}
+
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <input name="serving" type="text" class="form-control" placeholder="ex) 1, 2, 3, ..." aria-label="serving" aria-describedby="serving">
+                    <span class="input-group-text" id="serving">인분</span>
+                </div>
+            </div>
+        </div>
+        
+        <p>카테고리 선택</p>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="cate1">종류별</label>
+            <select name="cate1" class="form-select" id="cate1">
+                <option selected>Choose...</option>
+                <option value="한식">한식</option>
+                <option value="양식">양식</option>
+                <option value="일식">일식</option>
+                <option value="기타">기타</option>
+            </select>
+            {% if cate_create %}
+                <div class="form-text" id="recipe">추천:{{cate_create_1}}</div>
+            {% else %}
+                <div class="form-text" id="recipe">직접 입력하세요</div>
+            {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="cate2">상황별</label>
+            <select name="cate2" class="form-select" id="cate2">
+                <option selected>Choose...</option>
+                <option value="모임용">모임용</option>
+                <option value="원팬/스피디">원팬/스피디</option>
+                <option value="일상">일상</option>
+                <option value="다이어트">다이어트</option>
+                <option value="디저트">디저트</option>
+            </select>
+            {% if cate_create %}
+                <div class="form-text" id="recipe">추천:{{cate_create_2}}</div>
+            {% else %}
+                <div class="form-text" id="recipe">직접 입력하세요</div>
+            {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="cate3">재료별</label>
+            <select name="cate3" class="form-select" id="cate3">
+                <option selected>Choose...</option>
+                <option value="소고기">소고기</option>
+                <option value="돼지고기">돼지고기</option>
+                <option value="닭고기">닭고기</option>
+                <option value="육류">육류</option>
+                <option value="채소">채소</option>
+                <option value="생선">생선</option>
+                <option value="해물">해물</option>
+                <option value="쌀">쌀</option>
+                <option value="면" {% if cate_create_3 == "면" %}selected{% endif %}>면</option>
+                <option value="술안주">술안주</option>
+                <option value="밀가루">밀가루</option>
+                <option value="콩/견과류">콩/견과류</option>
+                <option value="달걀/유제품">달걀/유제품</option>
+                <option value="가공식품류">가공식품류</option>
+                <option value="기타">기타</option>
+
+            </select>
+            {% if cate_create %}
+                <div class="form-text" id="recipe">추천:{{cate_create_3}}</div>
+            {% else %}
+                <div class="form-text" id="recipe">직접 입력하세요</div>
+            {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="ingred">재료</span>
+            <input name="ingred" type="text" class="form-control" placeholder="ex) 양파/1개, 대파/1단, ... " aria-label="ingred" aria-describedby="ingred" value="{{ ingred_create }}">
+            {% if ingred_create %}
+                <div class="form-text" id="recipe">추천재료:{{ingred_create}}</div>
+            {% else %}
+                <div class="form-text" id="recipe">직접 입력하세요</div>
+            {% endif %}
+        </div>
+
+        <div class="input-group mb-3">
+            <label for="recipe" class="form-label">레시피</label>
+            <div class="input-group">
+                <span class="input-group-text" id="recipe">Step 1</span>
+                <input name="recipe" type="text" class="form-control" id="recipe" aria-describedby="recipe">
+            </div>
+            <div class="form-text" id="recipe">1/양파를 썬다, 2/대파를 어슷썰기한다, ...</div>
+        </div>
+        <button type="submit" class="btn btn-primary">작성완료</button>
+    </form>
+            
+
+
+
+
+    <script>
+
+        const btn_add_ingred = $("#btn_add_ingred");
+        btn_add_ingred.on('click', (e)=>{
+            e.preventDefault();
+            const ingred_list = $(".ingred-input")
+            const ingredamount_list = $(".ingredamount-input")
+            const last_ingred_object = ingred_list[ingred_list.length-1];
+            
+            const step = ingred_list.length + 1;
+    
+            const ingred_input = `
+                <div>
+                    <label for="id_ingred">재료</label>
+                    <input type="text" name="ingreddetails" class="ingred-input">
+                    <label for="id_ingred">용량</label>
+                    <input type="text" name="ingredamount" class="ingredamount-input">
+                </div>
+            `;
+    
+            $("#recipe_ingred").append(ingred_input);
+            
+        });
+    
+    
+    
+    
+        
+    
+        const btn_add_recipe = $("#btn_add_recipe");
+        btn_add_recipe.on('click', (e)=>{
+            e.preventDefault();
+            const recipe_list = $(".recipe-input")
+            
+            
+            const step = recipe_list.length + 1;
+    
+            const recipe_input = `
+                <div id="recipedetails_${step}">
+                    <label for="id_recipedetails_${step}">Step ${step}</label>
+                    <input type="text" name="recipedetails" class="recipe-input" required id="id_recipedetails_${step}">
+                    <button id="btn_remove_recipe_${step}">X</buttton>
+                </div>
+            `;
+    
+            $("#recipe_contents").append(recipe_input);   
+        });
+    
+    
+    
+        // const btn_remove_recipe = $('#btn_remove_recipe_${step}');
+        // btn_remove_recipe.on('click', (e)=>{
+        //     e.preventDefault();
+            
+        //     const remove_step = 3;
+    
+        //     const recipe_remove = $('#recipedetails_${remove_step}')
+    
+        //     $('#recipe_contents').remove(recipe_remove);
+        // });
+    
+    </script>
+
+{% endblock %}

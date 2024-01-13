@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<a href="{% url 'posts:bookmark' post_id=post.id %}" class="text-reset text-decoration-none">
+    {% if post in user.bookmark_posts.all  %}
+        <i class="bi bi-star-fill" style="color: yellow"></i> 
+    {% else %}
+        <i class="bi bi-star"></i>
+    {% endif %}
+</a> {{post.bookmark_users.all|length}}명
+
+<p>조회수 {{ post.post_hit }}</p>
+<p>별점 {{ rating_avg }}</p>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+                <h5 class="card-title">{{post.title}}</h5>
+            </div>
+            <div class="card-body">
+                <div style="text-align: center;">
+                <img src="{{post.image.url}}" width="400" height="300" alt="...">
+                </div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{post.serving}}인분 기준</li>
+                <li class="list-group-item">재료</li>
+                <li class="list-group-item">
+                {% for ingred in ingreds %}
+                    {{ingred.ingred}} {{ingred.amount}} <br>
+                {% endfor %}
+                </li>
+                <li class="list-group-item">레시피</li>
+                <li class="list-group-item">
+                {% for recipe in recipes %}
+                    {{recipe.step}}단계 {{recipe.contents}} <br>
+                {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <a href="/posts/" class="btn btn-primary">목록보기</a>
+        <!-- <a href="{% url 'posts:post_update' post_id=post.id %}" class="btn btn-primary">수정</a> -->
+        {% if user == post.user %}
+            <a href="{% url 'posts:post_delete' post_id=post.id %}" class="btn btn-primary">삭제</a>
+        {% endif %}
+        <a class="btn btn-warning" href="{% url 'posts:rating_create' post_id=post.id%}">별점남기기</a>
+    </div>
+
+
+</div>
+{% endblock %}

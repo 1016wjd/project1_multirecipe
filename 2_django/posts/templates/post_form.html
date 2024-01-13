@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <b>음식 이름</b>
+        <div class="input-group input-group-lg">
+            <span class="input-group-text" id="title">이름</span>
+            <input name="title" type="text" class="form-control" placeholder="음식이름" aria-label="title" aria-describedby="title">
+        </div>
+        <br>
+        {% comment %} <div class="input-group mb-3">
+            <label class="input-group-text" for="image">음식이미지</label>
+            <input name="image" type="file" class="form-control" id="image">
+        </div> {% endcomment %}
+        <b>인분</b>
+        <div class="row g-3">
+            <div class="col-sm-3">
+                <div class="input-group mb-3">
+                    <input name="serving" type="text" class="form-control" placeholder="ex) 1, 2, 3, ..." aria-label="serving" aria-describedby="serving">
+                    <span class="input-group-text" id="serving">인분</span>
+                </div>
+            </div>
+        </div>
+        
+        <b>카테고리 선택</b>
+        {% if cate_create %}
+            <div class="form-text" id="recipe">이미지 기반 추천 카테고리입니다</div>
+        {% else %}
+            <div class="form-text" id="recipe">직접 입력하세요</div>
+        {% endif %}
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="cate1">종류별</label>
+            <select name="cate1" class="form-select" id="cate1">
+                <option selected>Choose...</option>
+                <option value="한식" {% if cate_create_1 == "한식" %}selected{% endif %}>한식</option>
+                <option value="양식" {% if cate_create_1 == "양식" %}selected{% endif %}>양식</option>
+                <option value="일식" {% if cate_create_1 == "일식" %}selected{% endif %}>일식</option>
+                <option value="기타" {% if cate_create_1 == "기타" %}selected{% endif %}>기타</option>
+            </select>
+            
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="cate2">상황별</label>
+            <select name="cate2" class="form-select" id="cate2">
+
+                <option selected>Choose...</option>
+                <option value="모임용" {% if cate_create_2 == "모임용" %}selected{% endif %}>모임용</option>
+                <option value="원팬/스피디" {% if cate_create_2 == "원팬/스피디" %}selected{% endif %}>원팬/스피디</option>
+                <option value="일상" {% if cate_create_2 == "일상" %}selected{% endif %}>일상</option>
+                <option value="술안주" {% if cate_create_2 == "술안주" %}selected{% endif %}>술안주</option>
+                <option value="다이어트" {% if cate_create_2 == "다이어트" %}selected{% endif %}>다이어트</option>
+                <option value="디저트" {% if cate_create_2 == "디저트" %}selected{% endif %}>디저트</option>
+            </select>
+            
+        </div>
+
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="cate3">재료별</label>
+            <select name="cate3" class="form-select" id="cate3">
+                <option selected>Choose...</option>
+                <option value="소고기" {% if cate_create_3 == "소고기" %}selected{% endif %}>소고기</option>
+                <option value="돼지고기" {% if cate_create_3 == "돼지고기" %}selected{% endif %}>돼지고기</option>
+                <option value="닭고기" {% if cate_create_3 == "닭고기" %}selected{% endif %}>닭고기</option>
+                <option value="육류" {% if cate_create_3 == "육류" %}selected{% endif %}>육류</option>
+                <option value="채소" {% if cate_create_3 == "채소" %}selected{% endif %}>채소</option>
+                <option value="생선" {% if cate_create_3 == "생선" %}selected{% endif %}>생선</option>
+                <option value="해물" {% if cate_create_3 == "해물" %}selected{% endif %}>해물</option>
+                <option value="쌀" {% if cate_create_3 == "쌀" %}selected{% endif %}>쌀</option>
+                <option value="면" {% if cate_create_3 == "면" %}selected{% endif %}>면</option>
+                <option value="술안주" {% if cate_create_3 == "술안주" %}selected{% endif %}>술안주</option>
+                <option value="밀가루" {% if cate_create_3 == "밀가루" %}selected{% endif %}>밀가루</option>
+                <option value="콩/견과류" {% if cate_create_3 == "콩/견과류" %}selected{% endif %}>콩/견과류</option>
+                <option value="달걀/유제품" {% if cate_create_3 == "달걀/유제품" %}selected{% endif %}>달걀/유제품</option>
+                <option value="가공식품류" {% if cate_create_3 == "가공식품류" %}selected{% endif %}>가공식품류</option>
+                <option value="기타" {% if cate_create_3 == "기타" %}selected{% endif %}>기타</option>
+            </select>
+            
+        </div>
+        <b>재료 및 용량</b>
+        {% if ingred_create %}
+            <div class="form-text" id="recipe">이미지 기반 추천 재료입니다</div>
+        {% else %}
+            <div class="form-text" id="recipe">직접 입력하세요</div>
+        {% endif %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="ingred">재료</span>
+            <input name="ingred" type="text" class="form-control" placeholder="ex) 양파/1개, 대파/1단, ... " aria-label="ingred" aria-describedby="ingred" value="{{ ingred_create }}">
+            
+        </div>
+
+        <b>레시피 상세 내용</b>
+        <div class="input-group mb-3">
+            <div class="input-group">
+                <span class="input-group-text" id="recipe">레시피</span>
+                <input name="recipe" type="text" class="form-control" id="recipe" aria-describedby="recipe">
+            </div>
+            <div class="form-text" id="recipe">1/양파를 썬다, 2/대파를 어슷썰기한다, ...</div>
+        </div>
+        <button type="submit" class="btn btn-primary">작성완료</button>
+    </form>
+
+
+{% endblock %}

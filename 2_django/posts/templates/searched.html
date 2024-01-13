@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form class="d-flex" method="POST" action="{% url 'posts:search' %}">
+    {% csrf_token %}        
+    <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="Search">
+    <button class="btn btn-outline-dark" type="submit"> 
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+      </svg> 
+    </button>
+</form>
+
+<br>
+
+    {% if searched %}       
+            <h1> 검색하신 {{ searched }} 레시피 정보입니다. </h1>
+            <br>
+            {% for post in posts %}      
+                {% include '_card.html' %}
+            {% endfor %}
+    {% elif image %}
+        {% for post in posts %}      
+            {% include '_card.html' %}
+        {% endfor %}
+    {% else %}        
+            <h1> 찾고 있는 레시피를 검색창에 입력해주세요. </h1>
+    {% endif %}
+
+{% endblock %}

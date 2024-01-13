@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'posts:index' %}"><img src="/media/image/logo/logo.png" width="100" height="30"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+
+        {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              종류별
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'posts:cate1_1' %}">한식</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate1_2' %}">양식</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate1_3' %}">일식</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate1_4' %}">기타</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              상황별
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'posts:cate2_1' %}">모임용</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate2_2' %}">원팬/스피디</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate2_3' %}">술안주</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate2_4' %}">일상</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate2_5' %}">다이어트</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:cate2_6' %}">디저트</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              재료별
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'posts:cate3_1' %}">소고기</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_2' %}">돼지고기</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_3' %}">닭고기</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_4' %}">육류</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_5' %}">채소</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_6' %}">생선</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_7' %}">해물</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_8' %}">쌀</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_14' %}">면</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_9' %}">밀가루</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_10' %}">콩/견과류</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_11' %}">달걀/유제품</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_12' %}">가공식품류</a></li>
+                <li><a class="dropdown-item" href="{% url 'posts:cate3_13' %}">기타</a></li>
+            </ul>
+          </li>
+          <a class="nav-link" href="{% url 'accounts:mypage' %}">{{user}}</a>
+        
+
+
+
+        {% else %}
+        <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
+        <a class="nav-link" href="{% url 'accounts:login' %}">login</a>
+        {% endif %}
+
+
+
+
+      </div>
+    </div>
+  </div>
+</nav>

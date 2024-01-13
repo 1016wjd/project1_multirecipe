@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_title">제목</label> 
+            <h1>{{form.title}}</h1>
+        </div>
+
+        <div>
+            <label for="id_image">음식이미지</label>
+            <h1>{{form.image}}</h1>
+        </div>
+        <div>
+            <label for="id_serving">인원 </label> 
+            <h1>{{form.serving}}인분</h1>
+        </div>
+
+
+        <div id="recipe_ingred">
+            <div>
+                <label for="id_ingreds">재료</label>{{form.ingredsdetails}}<label for="id_ingreds_amount">용량</label>{{form.ingredsamount}}<button id="btn_add_ingred">+</buttton> <button id="btn_remove_ingred">X</buttton>
+            </div>
+        </div>
+    
+        <br>
+        <div>
+            <div id="recipe_contents">
+                <div>
+                    <label for="id_recipedetails">Step 1</label>{{form.recipedetails}}<button id="btn_add_recipe">+</buttton>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+
+        <div>
+            <label for="id_serving"> 종류별 </label> 
+            <h1>{{form.cate1}}</h1>
+        </div>
+
+        <div>
+            <label for="id_serving"> 상황별 </label> 
+            <h1>{{form.cate2}}</h1>
+        </div>
+
+        <div>
+            <label for="id_serving"> 제료별 </label> 
+            <h1>{{form.cate3}}</h1>
+        </div>
+    
+    
+    <input type="submit">
+</form>
+<script>
+
+    const btn_add_ingred = $("#btn_add_ingred");
+    btn_add_ingred.on('click', (e)=>{
+        e.preventDefault();
+        const ingred_list = $(".ingred-input")
+        const ingredamount_list = $(".ingredamount-input")
+        const last_ingred_object = ingred_list[ingred_list.length-1];
+        
+        const step = ingred_list.length + 1;
+
+        const ingred_input = `
+            <div>
+                <label for="id_ingred">재료</label>
+                <input type="text" name="ingreddetails" class="ingred-input">
+                <label for="id_ingred">용량</label>
+                <input type="text" name="ingredamount" class="ingredamount-input">
+            </div>
+        `;
+
+        $("#recipe_ingred").append(ingred_input);
+        
+    });
+
+
+
+
+    
+
+    const btn_add_recipe = $("#btn_add_recipe");
+    btn_add_recipe.on('click', (e)=>{
+        e.preventDefault();
+        const recipe_list = $(".recipe-input")
+        const last_recipe_object = recipe_list[recipe_list.length-1];
+        
+        const step = recipe_list.length + 1;
+
+        const recipe_input = `
+            <div id="recipedetails_${step}">
+                <label for="id_recipedetails_${step}">Step ${step}</label>
+                <input type="text" name="recipedetails" class="recipe-input" required id="id_recipedetails_${step}">
+                <button id="btn_remove_recipe_${step}">X</buttton>
+            </div>
+        `;
+
+        $("#recipe_contents").append(recipe_input);   
+    });
+
+
+
+    // const btn_remove_recipe = $('#btn_remove_recipe_${step}');
+    // btn_remove_recipe.on('click', (e)=>{
+    //     e.preventDefault();
+        
+    //     const remove_step = 3;
+
+    //     const recipe_remove = $('#recipedetails_${remove_step}')
+
+    //     $('#recipe_contents').remove(recipe_remove);
+    // });
+
+</script>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">제목</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <span class="input-group-text" id="basic-addon2">@example.com</span>
+          </div>
+          
+          <div class="mb-3">
+            <label for="basic-url" class="form-label">Your vanity URL</label>
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+              <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+            </div>
+            <div class="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
+          </div>
+          
+          <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            <span class="input-group-text">.00</span>
+          </div>
+          
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+            <span class="input-group-text">@</span>
+            <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+          </div>
+          
+          <div class="input-group">
+            <span class="input-group-text">With textarea</span>
+            <textarea class="form-control" aria-label="With textarea"></textarea>
+          </div>
+    </form>
+   
+{% endblock %}

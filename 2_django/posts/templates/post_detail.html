@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+{% comment %} <div class="container text-center">
+    <h3><b>{{post.title}}</b></h3>
+</div>
+<a href="{% url 'posts:bookmark' post_id=post.id %}" class="text-reset text-decoration-none">
+    {% if post in user.bookmark_posts.all  %}
+        <i class="bi bi-star-fill" style="color: yellow"></i> 
+    {% else %}
+        <i class="bi bi-star"></i>
+    {% endif %}
+</a> {{post.bookmark_users.all|length}}명
+<br> {% endcomment %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h3><b>{{post.title}}</b></h3>
+        </div>
+        <div class="col-md-5">
+            <b>조회수</b> {{ post.post_hit }} <b>별점</b> {{ rating_avg }}
+        </div>
+        
+    </div>
+    
+    <div class="col-md-3 text-right">
+            
+        <a href="{% url 'posts:bookmark' post_id=post.id %}" class="text-reset text-decoration-none">
+            {% if post in user.bookmark_posts.all  %}
+                <i class="bi bi-star-fill" style="color: yellow"></i> 
+            {% else %}
+                <i class="bi bi-star"></i>
+            {% endif %}
+        </a> {{post.bookmark_users.all|length}}명이 즐겨찾는 레시피 입니다 
+
+    </div>
+    
+</div>
+
+
+
+
+
+<div style="display: flex; flex-direction: row">
+
+    <div style="width: 600px">
+        <div class="card-body">
+            &ensp;<p></p> 
+            <div style="text-align: center;">    
+                <img src="{{post.image.url}}" width="400" height="300" alt="...">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div style="width: 1000px">
+
+
+        <div class="ingredient-box">
+            <div class="row">
+                <div class="col-md-6">
+                    <b>{{post.serving}}인분 기준</b>
+                </div>
+                
+            </div>
+        </div>
+        
+
+        
+        
+        <div class="ingredient-box">
+            <b>재료 및 용량</b>
+            <hr>
+            {% for ingred in ingreds %}
+                {{ingred.ingred}} {{ingred.amount}}  |
+            {% endfor %}
+        </div>
+        
+
+        <div class="ingredient-box">
+            <b>레시피 순서</b>
+            <hr>
+            <li class="list-group-item">
+            {% for recipe in recipes %}
+                <i class="bi bi-{{recipe.step}}-square-fill"></i>
+                {{recipe.contents}} 
+                <hr>
+            {% endfor %}
+
+            </li>
+        </div>
+       
+        
+        <a href="/posts/" class="btn btn-primary">목록보기</a>
+
+        <!-- <a href="{% url 'posts:post_update' post_id=post.id %}" class="btn btn-primary">수정</a> -->
+        {% if user == post.user %}
+            <a href="{% url 'posts:post_delete' post_id=post.id %}" class="btn btn-primary">삭제</a>
+        {% endif %}
+        <a class="btn btn-warning" href="{% url 'posts:rating_create' post_id=post.id%}">별점남기기</a>
+    </div>
+
+
+  
+</div>
+
+
+
+
+{% endblock %}

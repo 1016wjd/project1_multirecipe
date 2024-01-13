@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="row justify-content-md-center">
+    <form action="" method="post">
+        {% csrf_token %}    
+        <h1> 3개를 선택해 주세요 </h1>
+        <div>
+            <input type="checkbox" name="selected" value="제육볶음"> 제육볶음 <img src="https://i.namu.wiki/i/npjMucg7sLxIm8Uca8O3lygeM9UX2Dsu4RVnVxcDdaItsLZ6w0N0Ju54gVqn8O7r7taBR6bAEwL9qOLoUKKbzg.webp",  width="200" height="200">
+            <input type="checkbox" name="selected" value="닭도리탕"> 닭도리탕 <img src="https://t4.ftcdn.net/jpg/05/38/86/61/360_F_538866105_vYunnrDeEVWOWSEHEEkMTzTA4iXqPNgE.jpg",  width="200" height="200"> 
+            <input type="checkbox" name="selected" value="된장찌개"> 된장찌개 <img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F207091554E28A9DA33",  width="200" height="200">
+            <input type="checkbox" name="selected" value="비빔밥"> 비빔밥 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO5cT7R_zL4BNYyHnpnMLzDUyCjW_9qGi3LCW65K03xw&s",  width="200" height="200">
+            <input type="checkbox" name="selected" value="치킨커리"> 치킨커리 <img src="https://i.intakefoods.kr/cache/94/41/94412da0bd9470ee86eab83556844bd8.jpg",  width="200" height="200">
+            <br>
+            <input type="checkbox" name="selected" value="쌀국수"> 쌀국수 <img src="https://www.costco.co.kr/medias/sys_master/images/h21/hff/135176542158878.jpg",  width="200" height="200">
+            <input type="checkbox" name="selected" value="마라탕"> 마라탕 <img src="https://mashija.com/wp-content/uploads/2023/10/004-2.png",  width="200" height="200">
+            <input type="checkbox" name="selected" value="토마토파스타"> 토마토파스타 <img src="https://recipe1.ezmember.co.kr/cache/recipe/2019/03/03/fca1b1c8f05592f409b6fbe702e2112a1.jpg",  width="200" height="200">
+            <input type="checkbox" name="selected" value="스테이크"> 스테이크 <img src="https://i.namu.wiki/i/8HjXHmgc7e_5KZVmId552aTeMjiaDhyamd_XO9WUzD0AIG9jK4c6ULrJrec8MZMFiFm8tNO6wbr6sNGJkzbFJw.webp",  width="200" height="200">
+            <input type="checkbox" name="selected" value="초밥"> 초밥 <img src="https://m.namjasusan.com/web/product/medium/202205/f26bdf68bcf65a833be99a744cabb189.jpg",  width="200" height="200">
+        </div>
+        <button class="btn btn-primary" type="submit">제출</button>
+    </form>
+</div>
+
+{% endblock %}
