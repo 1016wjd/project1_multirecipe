@@ -318,4 +318,11 @@ Flask 기반 Serving Server 구현
 | 4   | 카테고리 표시          | 카테고리 > 세부카테고리/ 현재 페이지에 대한 정보 제공 |
 
 ## 주요기능시연영상
+### 취향 테스트 
+[![동영상 썸네일](https://img.youtube.com/vi/zopkfUbWDzM/0.jpg)](https://www.youtube.com/watch?v=zopkfUbWDzM)
 
+### 게시글 작성
+[![동영상 썸네일](https://img.youtube.com/vi/xud0JjsZFVo/0.jpg)](https://www.youtube.com/watch?v=xud0JjsZFVo)
+
+### 이미지 검색 기능 
+[![동영상 썸네일](https://img.youtube.com/vi/xcm74q47urk/0.jpg)](https://www.youtube.com/watch?v=xcm74q47urk)
